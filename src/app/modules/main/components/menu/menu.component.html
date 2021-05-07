@@ -1,0 +1,20 @@
+<ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="nzInlineCollapsed">
+  <ng-container *ngFor="let item of MenuList" [ngSwitch]="!!item.children">
+    <li *ngSwitchCase="false" nz-menu-item nz-tooltip nzTooltipPlacement="right" [nzMatchRouter]="true" nz-tooltip
+      nzTooltipPlacement="right" [nzTooltipTitle]="nzInlineCollapsed ? 'user' : ''">
+      <i nz-icon [nzType]="nzInlineCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
+      <a [routerLink]="item.path">{{item.name}}</a>
+    </li>
+    <li *ngSwitchCase="true" nz-submenu [nzOpen]="item.open" [nzTitle]="item.name" nzIcon="setting">
+      <ul>
+        <li nz-menu-item *ngFor="let subItem of item.children"  [nzMatchRouter]="true">
+          <a [routerLink]="subItem.path">{{subItem.name}}</a>
+        </li>
+      </ul>
+    </li>
+    <li *ngSwitchDefault nz-menu-item  [nzMatchRouter]="true" nz-tooltip nzTooltipPlacement="right" [nzTooltipTitle]="nzInlineCollapsed ? 'user' : ''">
+      <i nz-icon [nzType]="nzInlineCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
+      <a [routerLink]="item.path">{{item.name}}</a>
+    </li>
+  </ng-container>
+</ul>

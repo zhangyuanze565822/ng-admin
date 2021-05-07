@@ -1,0 +1,35 @@
+<div class="table_box" #table_box>
+  <nz-table #basicTable [nzData]="tableData" [nzFrontPagination]="false" [nzTotal]="totalNum"
+    [nzPageIndex]="currentPage" [nzPageSize]="pageSize" [nzShowSizeChanger]="true" [nzPageSizeOptions]="pageSizeOptions"
+    [nzScroll]="scrollObj" (nzPageIndexChange)="handleCurrentChange($event)"
+    (nzPageSizeChange)="handlePageSizeChange($event)" [nzShowTotal]="totalTemplate">
+    <thead>
+      <tr>
+        <th *ngFor="let item of tableHeader" [nzEllipsis]="true" [nzRight]="item.colType==='action'" nzAlign="center" [nzWidth]="item.colWidth">{{item.colLabel}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data;let i=index;">
+        <ng-container *ngFor="let item of tableHeader" [ngSwitch]="item.colType">
+          <td *ngSwitchCase="'normal'" [nzEllipsis]="true" nzAlign="center">{{ item.formatter?item.formatter(data[item.colValueKey]):data[item.colValueKey]  }}</td>
+          <td *ngSwitchCase="'index'" [nzEllipsis]="true" nzAlign="center">{{ i+1 }}</td>
+          <td *ngSwitchCase="'action'" nzAlign="center" class="operate_btn_style" [nzRight]="true">
+            <button nz-button nzType="primary"
+                          [style.backgroundColor]="btnItem.btn_color"
+                          *ngFor="let btnItem of item.actionList"
+                            (click)="handleTableOperateClick(btnItem)">{{btnItem.btn_text}}</button>
+          </td>
+          <td *ngSwitchCase="'blank_link'"  [nzEllipsis]="true" nzAlign="center">
+            <a [href]="item.blank_link_path" target="_blank"
+              rel="noopener noreferrer">{{data[item.colValueKey]}}</a>
+          </td>
+          <td *ngSwitchCase="'router_link'"  [nzEllipsis]="true" nzAlign="center">
+            <a [routerLink]="item.router_link_path" routerLinkActive="active">{{data[item.colValueKey]}}</a>
+          </td>
+          <td *ngSwitchDefault  [nzEllipsis]="true" nzAlign="center">{{ data[item.colValueKey] }}</td>
+        </ng-container>
+      </tr>
+    </tbody>
+  </nz-table>
+  <ng-template #totalTemplate let-totalNum>Total {{ totalNum }} items</ng-template>
+</div>

@@ -41,7 +41,7 @@ export class TableComponent implements OnInit, AfterViewInit, OnDestroy {
     const element: HTMLElement = this.table_box.nativeElement;
     const eleStyleTop = element.getBoundingClientRect().top;
     const viewHeight = document.documentElement.clientHeight || document.body.clientHeight;
-    const tableScrollHeight = viewHeight - eleStyleTop - 64 - 55 - 15 + 'px';
+    const tableScrollHeight = viewHeight - eleStyleTop - 64 - 55 - 15 - 15 + 'px';
     this.scrollObj = { x: "100%", y: tableScrollHeight };
     this.cdr.detectChanges();
   }

@@ -1,19 +1,20 @@
 <nz-layout class="app-layout">
-  <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
-    [nzTrigger]="null">
-    <div class="sidebar-logo">
-      <img src="/assets/20297227.jpeg" alt="logo">
+  <nz-header>
+    <div class="app-header">
+      <div class="sidebar-logo" [ngClass]="{'collapse': isCollapsed}">
+        <img class="small" src="/assets/logo.svg" alt="logo" *ngIf="isCollapsed">
+        <img class="big" src="/assets/logo-full.svg" alt="logo" *ngIf="!isCollapsed">
+      </div>
+      <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+        <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
+      </span>
     </div>
+  </nz-header>
+  <nz-layout>
+    <nz-sider class="menu-sidebar" nzCollapsible nzWidth="256px" nzBreakpoint="md" [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null">
     <app-menu [nzInlineCollapsed]="isCollapsed"></app-menu>
   </nz-sider>
-  <nz-layout>
-    <nz-header>
-      <div class="app-header">
-        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
-          <i class="trigger" nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></i>
-        </span>
-      </div>
-    </nz-header>
     <nz-content>
       <div class="inner-content">
         <router-outlet></router-outlet>

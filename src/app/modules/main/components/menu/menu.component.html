@@ -1,4 +1,4 @@
-<ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="nzInlineCollapsed">
+<ul nz-menu  nzMode="inline" [nzInlineCollapsed]="nzInlineCollapsed">
   <ng-container *ngFor="let item of MenuList" [ngSwitch]="!!item.children">
     <li *ngSwitchCase="false" nz-menu-item nz-tooltip nzTooltipPlacement="right" [nzMatchRouter]="true" nz-tooltip
       nzTooltipPlacement="right" [nzTooltipTitle]="nzInlineCollapsed ? 'user' : ''">
